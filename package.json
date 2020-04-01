@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/EDowning2000/burger/issues"
   },
-  "homepage": "https://github.com/EDowning2000/burger#readme"
+  "homepage": "https://github.com/EDowning2000/burger#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.0",
+    "mysql": "^2.18.1"
+  }
 }
