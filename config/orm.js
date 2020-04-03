@@ -4,7 +4,7 @@ const mysql = require('mysql')
 
 function createQmarks(number){
   let questionMarks = [];
-    for(var i=; i< number; i++){
+    for(var i=0; i< number; i++){
       questionMarks.push('?')
     }
     return questionMarks.toString();
