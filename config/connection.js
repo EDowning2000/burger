@@ -12,6 +12,9 @@ connection.connect(function(err){
   if (err){
     console.log('Error Making connection')
   }
+  else{
+    console.log('Connected successfully!')
+  }
 })
 
 module.exports= connection;

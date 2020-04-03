@@ -8,3 +8,7 @@ CREATE TABLE burgers (
 	devoured BOOLEAN DEFAULT false, 
   PRIMARY KEY (id)
 );
+USE burgers_db;
+INSERT INTO burgers (burger_name, devoured)
+VALUES ('Single', false),('Double', false),('Cheese Burger', false),('Bacon', false),('Lettuce Bun', false);
+
