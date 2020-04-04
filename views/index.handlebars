@@ -11,12 +11,12 @@
 </form>
 
 
-
 <h2>Uneaten Burgers</h2>
 <ul>
   {{#each burgers}}
     {{#unless devoured}}
-      <p>{{burger_name}}</p>
+      <p>{{burger_name}}</p> 
+      <button id= {{id}} class= "devourBtn">Devour</button>
     {{/unless}}
   {{/each}}
 </ul>
