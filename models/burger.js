@@ -1,31 +1,28 @@
 const orm = require('../config/orm.js')
 
 const modelBurger = {
-    selectAll : (cb)=>{
-      orm.selectOne('burgers', (res)=>{
+    all : (cb)=>{
+      console.log('inside burger')
+      orm.all('burgers', (res)=>{
         cb(res);
       });
     },
-    insertOne: (cols,vals,cb)=>{
-      orm.insertOne('burgers', cols, vals, (res)=>{
+    create: (cols,vals,cb)=>{
+      orm.create('burgers', cols, vals, (res)=>{
         cb(res);
       });
     },
-    updateOne: (objColVals, condition, cb)=>{
-      orm.updateOne('burgers', objColVals, condition, (res)=>{
+    update: (objColVals, condition, cb)=>{
+      orm.update('burgers', objColVals, condition, (res)=>{
         cb(res);
       });
     },
-    deleteOne: (cb)=>{
-      orm.deleteOne('burgers', condition, (res)=>{
+    delete: (cb)=>{
+      orm.delete('burgers', condition, (res)=>{
         cb(res);
       });
     }
 }
-
-
-
-
 
 
 module.exports= modelBurger

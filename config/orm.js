@@ -1,75 +1,106 @@
 //this file has all of the logic for the application
-const connection = require("../config/connection.js");
-const mysql = require('mysql')
-
-function createQmarks(number){
-  let questionMarks = [];
-    for(var i=0; i< number; i++){
-      questionMarks.push('?')
-    }
-    return questionMarks.toString();
-} //a function to make the number of insertions to question marks so that they can be used by the query
-
-function translateSql(obj){
-  let sqlArray = [];
-    for (var key in obj){
-      var value = obj[key];
-        if (Object.hasOwnProperty.call(ob,key)){
-          if (typeof value === 'string'&& value.indexOf(' ')>= 0){
-            value ="'" = value + "'"
-          }
-          sqlArray.push(key + '=' + value)
-        }
-    }
-    return sqlArray.toString();
-} //translates the sql data to a string
+const connection = require("./connection.js");
 
 
 
-var orm = {
-  selectAll: (table,cb)=>{
-    var queryString = "SELECT * FROM " + table + ";";
-      connection.query(queryString, (err,res)=>{
-        if (err){
-          throw err
-        }
-        cb(res)
-      })
-  },
+//cats app versions
+function printQuestionMarks(num) {
+  var arr = [];
 
-  insertOne: (table, cols,vals,cb)=>{
-    var queryString = "INSERT INTO " +table+ ' ('+ cols.toString()+ ') '+ 'VALUES (' + createQmarks(vals.length) + ');' ;
-    //this is building out the sql string. The createQmarks function adds questionmarks equal to the length of the values needed so the string recognizes its taking in input.
-      console.log(queryString);
-        connection.query(queryString, (err,res)=>{
-          if (err){
-            throw err
-          }
-          cb(res);
-      });
-  },
-
-  updateOne: (table, objColVals, condition, cb)=>{
-    var queryString = 'UPDATE ' +table+ ' SET ' + translateSql(objColVals) +
-    ' WHERE ' + condition + ';';
-      connection.query(queryString, (err,res)=>{
-        if (err){
-          throw err
-        }
-        cb(res)
-      })
-  },
-
-  deleteOne: (table, condition, cb)=>{ //just an extra function in case a deletion is needed.
-    var queryString= "DELETE FROM " +table+ " WHERE "+condition + ';';
-      connection.query(queryString, (err, res)=>{
-        if (err){
-          throw err
-        }
-      })
-      cb(res)
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
   }
+
+  return arr.toString();
 }
+
+// Helper function to convert object key/value pairs to SQL syntax
+function objToSql(ob) {
+  var arr = [];
+
+  // loop through the keys and push the key/value as a string int arr
+  for (var key in ob) {
+    var value = ob[key];
+    // check to skip hidden properties
+    if (Object.hasOwnProperty.call(ob, key)) {
+      // if string with spaces, add quotations (Lana Del Grey => 'Lana Del Grey')
+      if (typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = "'" + value + "'";
+      }
+      // e.g. {name: 'Lana Del Grey'} => ["name='Lana Del Grey'"]
+      // e.g. {sleepy: true} => ["sleepy=true"]
+      arr.push(key + "=" + value);
+    }
+  }
+
+  // translate array of strings to a single comma-separated string
+  return arr.toString();
+}
+
+// Object for all our SQL statement functions.
+var orm = {
+  all: function(tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + ";";
+    console.log("inside orm")
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  create: function(table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
+
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  },
+  // An example of objColVals would be {name: panther, sleepy: true}
+  update: function(table, objColVals, condition, cb) {
+    var queryString = "UPDATE " + table;
+
+    queryString += " SET ";
+    queryString += objToSql(objColVals);
+    queryString += " WHERE ";
+    queryString += condition;
+
+    console.log(queryString);
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  },
+  delete: function(table, condition, cb) {
+    var queryString = "DELETE FROM " + table;
+    queryString += " WHERE ";
+    queryString += condition;
+
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  }
+};
 
 
 
