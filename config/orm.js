@@ -1,8 +1,6 @@
 //this file has all of the logic for the application
 const connection = require("./connection.js");
 
-
-
 //cats app versions
 function printQuestionMarks(num) {
   var arr = [];

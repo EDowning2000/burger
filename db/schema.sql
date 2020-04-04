@@ -10,5 +10,5 @@ CREATE TABLE burgers (
 );
 USE burgers_db;
 INSERT INTO burgers (burger_name, devoured)
-VALUES ('Single', false),('Double', false),('Cheese Burger', false),('Bacon', false),('Lettuce Bun', false);
+VALUES ('Single', true),('Double', false),('Cheese Burger', false),('Bacon', false),('Lettuce Bun', false);
 
