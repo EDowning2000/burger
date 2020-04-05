@@ -1,14 +1,14 @@
-
+$(function(){
   $(".devourBtn").on("click", function(event) {
-    var id = this.data('id');
+    var id = $(this).data('id');
     console.log(id)
     var devoured= 1
     event.preventDefault()
     
 
-    $.ajax('/api/burgers/:id = '+ id ,{
+    $.ajax('/api/burgers/devoured/:'+ id ,{
       type :'PUT',
-      data: devoured
+      data: 1
     }).then(()=>{
       console.log('Burger has been devoured');
         // location.reload();
@@ -33,4 +33,4 @@
         location.reload();
     });
   });
-
+});
