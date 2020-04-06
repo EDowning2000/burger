@@ -5,8 +5,22 @@
 
 .burger-icon {
 	font-size: 100px;
+	margin-bottom: 0px;
+}
+.burgersBeingCreated{
+	margin-top: 60px;
+}
+.submitBtn{
+	display: inline;
 }
 
 .devoured {
 	color: #a9aeb5;
+}
+.name{
+	display: inline;
+}
+
+button{
+	border-radius: 10px;
 }

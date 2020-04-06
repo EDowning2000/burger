@@ -2,16 +2,16 @@ $(function(){
   $(".devourBtn").on("click", function(event) {
     var id = $(this).data('id');
     console.log(id)
-    var devoured= 1
+    var isDevoured= {devoured: 1};
     event.preventDefault()
     
 
-    $.ajax('/api/burgers/devoured/:'+ id ,{
+    $.ajax('/api/burgers/'+ id ,{
       type :'PUT',
-      data: 1
+      data: isDevoured
     }).then(()=>{
       console.log('Burger has been devoured');
-        // location.reload();
+        location.reload();
     })
 })
 
