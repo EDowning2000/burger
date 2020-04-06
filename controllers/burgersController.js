@@ -22,16 +22,18 @@ router.post('/api/burgers', (req,res)=>{
 });
 
 
-router.put('/api/burgers/:id', (req,res)=>{
-  var condition = "id = " +req.params.id;
-    console.log("condition", condition);
-      burger.update({devoured: req.params.devoured}, condition, (result)=>{
-        if (result.changedRows === 0){
-          return res.status(404).end()
-        } else{
-          return res.status(200).end
-        }
-      });
+router.put('/api/burgers/:id', (req, res) => {
+  let condition = `id = ${req.params.id}`;
+
+  burger.update({
+      devoured: true,
+  }, condition, function (result) {
+      if (result.changeRows === 0) {
+          return res.status(404).end();
+      } else {
+          res.status(200).end();
+      }
+  });
 });
 
 router.delete('/api/burgers/:id', (req,res)=>{
