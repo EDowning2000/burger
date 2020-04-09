@@ -11,7 +11,7 @@ if(process.env.JAWSDB_URL){
     database: 'burgers_db'
   });
   
-}
+};
 
 var connection = mysql.createConnection({
   host: 'localhost',
